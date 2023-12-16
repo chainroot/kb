@@ -1,0 +1,109 @@
+---
+title: "Snapshot Recovery for Cosmos Node"
+description: "Guide on using daily snapshots for efficient CosmosHub validator service, including snapshot download, decompression, and node recovery."
+author: "Moein Fatehi"
+categories: ["Blockchain", "Cosmos", "Snapshot Recovery"]
+keywords: ["Cosmos Node", "Snapshot Recovery", "Validator Service", "Node Setup"]
+priority: "medium"
+order: 7
+previousDoc: "running-a-validator.mdx"
+nextDoc: "what-is-cosmos.mdx"
+draft: false
+---
+
+# Snapshot Recovery for Cosmos Node
+
+Daily snapshots are provided for Cosmos node operators to facilitate an efficient validator service on the CosmosHub chain. These snapshots are optimized for minimal disk space usage, focusing primarily on block signing capabilities.
+
+## Snapshot Configuration
+
+To align with the snapshot's efficiency, configure your node with the following settings:
+
+### `app.toml` Configuration
+- **Pruning Settings**:
+  ```toml
+  pruning = "custom"
+  pruning-keep-recent = "100"
+  pruning-keep-every = "0"
+  pruning-interval = "10"
+  ```
+
+### `config.toml` Configuration
+- **Indexer Setting**:
+  ```toml
+  indexer = "null"
+  ```
+
+## Processing the CosmosHub Snapshot
+
+### Install lz4 for Decompression
+- **Update and Install lz4**:
+  ```bash
+  sudo apt update
+  sudo apt install snapd -y
+  sudo snap install lz4
+  ```
+
+### Download the Snapshot
+- **Snapshot Download**:
+  Replace `snapshot_name` with the desired snapshot file name.
+  ```bash
+  wget -O snapshot_name.tar.lz4 https://snapshots.polkachu.com/snapshots/cosmos/snapshot_name.tar.lz4 --inet4-only
+  ```
+
+### Stop Your Node
+- **Node Shutdown**:
+  ```bash
+  sudo service cosmos stop
+  ```
+
+### Reset Your Node
+- **Important**: Back up `priv_validator_key.json` before proceeding.
+- **Node Reset**:
+  ```bash
+  gaiad unsafe-reset-all
+  ```
+
+### Decompress the Snapshot
+- **Decompression to Database Location**:
+  Replace `snapshot_name` and `database_location` accordingly.
+  ```bash
+  lz4 -c -d snapshot_name.tar.lz4 | tar -x -C database_location
+  ```
+
+### Validator Node Considerations
+- **Restore `priv_validator_state.json`** (if the chain is halted):
+  ```bash
+  cp backup_location/priv_validator_state.json database_location/data/priv_validator_state.json
+  ```
+
+### Restart Your Node
+- **Node Start**:
+  ```bash
+  sudo service cosmos start
+  ```
+
+### Clean Up
+- **Remove Downloaded Snapshot**:
+  ```bash
+  rm -v snapshot_name.tar.lz4
+  ```
+
+### Verify Node Status
+- **Check Node Service**:
+  ```bash
+  sudo service cosmos status
+  sudo journalctl -u cosmos -f
+  ```
+
+## Advanced and Alternative Methods
+
+### Streamlined Snapshot Recovery (Advanced Users)
+- **Combo Command for Streamlined Recovery**:
+  ```bash
+  curl -o - -L https://snapshots.polkachu.com/snapshots/cosmos/snapshot_name.tar.lz4 | lz4 -c -d - | tar -x -C database_location
+  ```
+
+### State-Sync Service (Alternative Method)
+- **CosmosHub State-Sync Service**:
+  An alternative to snapshot recovery is using the CosmosHub state-sync service for bootstrapping a node.

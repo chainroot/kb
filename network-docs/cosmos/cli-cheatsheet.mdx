@@ -1,0 +1,84 @@
+---
+title: "CosmosHub CLI Cheatsheet"
+description: "A handy cheatsheet for CosmosHub node operators, featuring commonly used CLI commands for quick reference and use."
+author: "Moein Fatehi"
+categories: ["Blockchain", "Cosmos", "CLI Cheatsheet"]
+keywords: ["Cosmos CLI", "Node Operators", "CLI Commands", "CosmosHub"]
+priority: "low"
+order: 1
+previousDoc: "index.mdx"
+nextDoc: "network-functionality.mdx"
+draft: false
+---
+
+# CosmosHub CLI Cheatsheet
+
+This cheatsheet provides a collection of commonly used CLI commands for CosmosHub node operators. It's designed for easy copying and pasting, with a few conventions:
+
+- Capitalized words are placeholders.
+- Use Polkachu RPC endpoints for consistency.
+- Always include `--chain-id` and `--node` flags.
+- Query commands output in JSON format and are piped through `jq`.
+
+## Bank: Send Tokens
+```bash
+gaiad tx bank send YOUR_KEY RECEIVER_ADDRESS 1000000uatom \
+  --chain-id cosmoshub-4 \
+  --node https://cosmos-rpc.polkachu.com:443 --gas=auto --gas-prices=0.005uatom --gas-adjustment=1.5 \
+  --from YOUR_KEY
+```
+
+## Distribution: Withdraw Rewards (Including Commission)
+```bash
+gaiad tx distribution withdraw-rewards YOUR_VALIDATOR_OPERATOR \
+  --commission \
+  --chain-id cosmoshub-4 \
+  --node https://cosmos-rpc.polkachu.com:443 --gas=auto --gas-prices=0.005uatom --gas-adjustment=1.5 \
+  --from YOUR_KEY
+```
+
+## Governance: Query Proposal
+```bash
+gaiad query gov proposal YOUR_PROPOSAL_NUMBER \
+  --chain-id cosmoshub-4 \
+  --node https://cosmos-rpc.polkachu.com:443 \
+  --output json | jq
+```
+
+## Governance: Vote on Proposal
+```bash
+gaiad tx gov vote YOUR_PROPOSAL_NUMBER YOUR_VOTE_OPTION \
+  --chain-id cosmoshub-4 \
+  --node https://cosmos-rpc.polkachu.com:443 --gas=auto --gas-prices=0.005uatom --gas-adjustment=1.5 \
+  --from YOUR_KEY
+```
+*Note: `YOUR_VOTE_OPTION` can be yes, no, no_with_veto, or abstain.*
+
+## Slashing: Unjail Validator
+```bash
+gaiad tx slashing unjail \
+  --chain-id cosmoshub-4 \
+  --node https://cosmos-rpc.polkachu.com:443 --gas=auto --gas-prices=0.005uatom --gas-adjustment=1.5 \
+  --from YOUR_KEY
+```
+
+## Staking: Create Validator
+*Note: Example values are used for demonstration. Adjust accordingly for your use.*
+```bash
+gaiad tx staking create-validator \
+  --amount 1000000uatom \
+  --commission-max-change-rate "0.05" \
+  --commission-max-rate "0.10" \
+  --commission-rate "0.05" \
+  --min-self-delegation "1" \
+  --pubkey=$(gaiad tendermint show-validator) \
+  --moniker 'YOUR_MONIKER' \
+  --website "YOUR_WEBSITE" \
+  --identity "YOUR_IDENTITY" \
+  --details "Your validator details" \
+  --security-contact="YOUR_CONTACT" \
+  --chain-id cosmoshub-4 \
+  --node https://cosmos-rpc.polkachu.com:443 --gas=auto --gas-prices=0.005uatom --gas-adjustment=1.5 \
+  --from YOUR_KEY
+```
+

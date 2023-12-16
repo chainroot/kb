@@ -1,0 +1,126 @@
+---
+title: "Setting Up a Cosmos Node"
+description: "Step-by-step guide to setting up a Cosmos node, including installation of Go, Cosmovisor, and node configuration."
+author: "Moein Fatehi"
+categories: ["Blockchain", "Cosmos", "Node Setup"]
+keywords: ["Cosmos Node", "Node Setup", "Go Installation", "Cosmovisor", "Node Configuration"]
+priority: "medium"
+order: 5
+previousDoc: "network-modules.mdx"
+nextDoc: "running-a-validator.mdx"
+draft: false
+---
+
+# Setting Up a Cosmos Node
+
+This guide provides a comprehensive walkthrough for setting up a Cosmos node, including the installation of necessary tools like Go and Cosmovisor, and the configuration of the node itself.
+
+## Prerequisites Installation
+
+### Installing Go
+- **Remove Previous Installation (if any)**:
+  ```bash
+  sudo rm -rvf /usr/local/go/
+  ```
+- **Download and Install Go**:
+  ```bash
+  wget https://golang.org/dl/go1.21.1.linux-amd64.tar.gz
+  sudo tar -C /usr/local -xzf go1.21.1.linux-amd64.tar.gz
+  rm go1.21.1.linux-amd64.tar.gz
+  ```
+- **Configure Go Environment**:
+  Add the following lines to your `~/.profile`:
+  ```bash
+  export GOROOT=/usr/local/go
+  export GOPATH=$HOME/go
+  export GO111MODULE=on
+  export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+  ```
+
+### Installing Cosmovisor
+- **Install Specific Version**:
+  ```bash
+  go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+  ```
+
+## Node Installation and Configuration
+
+### Setting Up the Node
+- **Clone and Checkout the Repository**:
+  ```bash
+  git clone https://github.com/cosmos/gaia cosmos
+  cd cosmos
+  git checkout v14.1.0
+  make install
+  ```
+- **Initialize the Node**:
+  Replace `YOUR_MONIKER` with your chosen moniker.
+  ```bash
+  gaiad init YOUR_MONIKER --chain-id cosmoshub-4
+  ```
+
+### Genesis File and Seed Configuration
+- **Download Genesis File**:
+  ```bash
+  wget -O genesis.json https://snapshots.polkachu.com/genesis/cosmos/genesis.json --inet4-only
+  mv genesis.json ~/.gaia/config
+  ```
+- **Configure Seed Node**:
+  ```bash
+  sed -i 's/seeds = ""/seeds = "ade4d8bc8cbe014af6ebdf3cb7b1e9ad36f412c0@seeds.polkachu.com:14956"/' ~/.gaia/config/config.toml
+  ```
+
+## Cosmovisor Setup and Node Launch
+
+### Configuring Cosmovisor Folders
+- **Create Necessary Directories**:
+  ```bash
+  mkdir -p ~/.gaia/cosmovisor/genesis/bin
+  mkdir -p ~/.gaia/cosmovisor/upgrades
+  ```
+- **Load Node Binary**:
+  ```bash
+  cp ~/go/bin/gaiad ~/.gaia/cosmovisor/genesis/bin
+  ```
+
+### Creating a Service File
+- **Service File Setup**:
+  Create `cosmos.service` in `/etc/systemd/system`. Replace `USER` with your Linux username.
+  ```ini
+  [Unit]
+  Description="cosmos node"
+  After=network-online.target
+
+  [Service]
+  User=USER
+  ExecStart=/home/USER/go/bin/cosmovisor start
+  Restart=always
+  RestartSec=3
+  LimitNOFILE=4096
+  Environment="DAEMON_NAME=gaiad"
+  Environment="DAEMON_HOME=/home/USER/.gaia"
+  Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+  Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+  Environment="UNSAFE_SKIP_BACKUP=true"
+
+  [Install]
+  WantedBy=multi-user.target
+  ```
+
+### Starting the Node Service
+- **Enable and Start the Service**:
+  ```bash
+  sudo systemctl enable cosmos.service
+  sudo service cosmos start
+  ```
+- **Monitoring Logs**:
+  ```bash
+  sudo journalctl -fu cosmos
+  ```
+
+## Additional Considerations
+- **Automation**: Consider using Ansible for automating the node setup.
+- **Security**: Configure your firewall, leaving only essential ports open.
+- **Custom Ports**: Use custom ports if running multiple nodes on the same server.
+
+For any issues or updates, please reach out through our Discord Server.
