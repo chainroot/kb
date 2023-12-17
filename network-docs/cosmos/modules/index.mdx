@@ -1,181 +1,36 @@
 ---
-title: "Comprehensive Overview of Cosmos Network Modules"
-description: "In-depth exploration of each module in the Cosmos network, detailing their functionalities, features, and roles in the ecosystem."
+title: "Index of Cosmos Network Modules"
+description: "Central index for all module documentation in the Cosmos network."
 author: "Moein Fatehi"
-categories: ["Blockchain", "Cosmos", "Modules"]
-keywords: ["Cosmos Network", "Blockchain Modules", "Cosmos SDK", "Staking", "Governance", "Bank Module", "Auth Module"]
+categories: ["Blockchain", "Cosmos", "Module Index"]
+keywords: ["Cosmos Network", "Module Documentation", "Index"]
 ---
 
-# Comprehensive Overview of Cosmos Network Modules
+# Index of Cosmos Network Modules
 
-The Cosmos network is composed of various modules, each with specific functionalities that contribute to the network's efficiency and scalability. This document provides a detailed overview of these modules, highlighting their key features and roles within the Cosmos ecosystem.
+This document serves as an index for the comprehensive documentation of each module in the Cosmos network. Click on a module name to access its detailed documentation.
 
-## Auth Module
-### Overview
-- **Purpose**: Manages authentication of accounts and transactions in Cosmos SDK applications.
-### Functionality
-- **Account Management**: Supports various account types, ensuring secure and efficient transaction processing.
-### Key Features
-- **Security**: Robust authentication mechanisms for enhanced security.
-- **Flexibility**: Supports multiple account types, catering to different use cases.
+## Cosmos Network Modules
 
-## Authz Module
-### Overview
-- **Purpose**: Enables granular permissions for accounts to perform actions on behalf of others.
-### Functionality
-- **Delegated Actions**: Allows account holders to delegate specific actions to other accounts.
-### Key Features
-- **Authorization Control**: Provides flexible and secure authorization options.
-
-## Bank Module
-### Overview
-- **Purpose**: Handles token transfers and account balance management within the network.
-### Functionality
-- **Token Transfer**: Facilitates the transfer of tokens between accounts.
-### Key Features
-- **Multi-Send Capability**: Enables sending tokens to multiple recipients simultaneously.
-
-## Crisis Module
-### Overview
-- **Purpose**: Activates under critical network conditions to halt the blockchain.
-### Functionality
-- **Emergency Response**: Triggers in situations like invariant breaches.
-### Key Features
-- **Network Integrity**: Ensures the stability and integrity of the network during emergencies.
-
-## Distribution Module
-### Overview
-- **Purpose**: Manages the distribution of fees and staking tokens.
-### Functionality
-- **Reward Distribution**: Distributes staking rewards to validators and delegators.
-### Key Features
-- **Efficient Distribution**: Automates the process of distributing network fees and rewards.
-
-## Evidence Module
-### Overview
-- **Purpose**: Deals with evidence handling for misbehavior such as double signing.
-### Functionality
-- **Misbehavior Tracking**: Manages evidence for network misbehaviors.
-### Key Features
-- **Security Enhancement**: Strengthens network security by addressing validator misbehaviors.
-
-## Feegrant Module
-### Overview
-- **Purpose**: Manages the granting of fee allowances for transaction execution.
-### Functionality
-- **Fee Delegation**: Allows users to pay transaction fees on behalf of others.
-### Key Features
-- **Flexibility in Transaction Fees**: Facilitates a more versatile fee payment system.
-
-## Governance Module
-### Overview
-- **Purpose**: Facilitates on-chain governance through proposals and voting mechanisms.
-### Functionality
-- **Proposal Management**: Manages the submission and voting of governance proposals.
-### Key Features
-- **Community Participation**: Empowers token holders to actively participate in network decisions.
-
-## Mint Module
-### Overview
-- **Purpose**: Oversees the creation of new units of staking tokens.
-### Functionality
-- **Inflation Management**: Controls the rate of new token creation.
-### Key Features
-- **Economic Stability**: Balances token supply and demand to maintain network value.
-
-## Params Module
-### Overview
-- **Purpose**: Provides a globally accessible parameter store for network configuration.
-### Functionality
-- **Parameter Adjustment**: Enables modification of network parameters.
-### Key Features
-- **Network Flexibility**: Allows for dynamic adjustments to network operations.
-
-## Protocolpool Module
-### Overview
-- **Purpose**: Manages functionalities related to community pool funds.
-### Functionality
-- **Fund Allocation**: Oversees the distribution and use of community funds.
-### Key Features
-- **Community Development**: Supports initiatives beneficial to the network's growth.
-
-## Slashing Module
-### Overview
-- **Purpose**: Implements mechanisms for penalizing validators for network violations.
-### Functionality
-- **Validator Punishment**: Enforces penalties for behaviors like double signing.
-### Key Features
-- **Network Security**: Discourages malicious activities and maintains validator integrity.
-
-## Staking Module
-### Overview
-- **Purpose**: Manages the Proof-of-Stake layer for public blockchains.
-### Functionality
-- **Validator Operations**: Facilitates staking, delegation, and reward distribution.
-### Key Features
-- **Network Consensus**: Central to maintaining the network's PoS consensus mechanism.
-
-## Upgrade Module
-### Overview
-- **Purpose**: Coordinates and implements software upgrades within the network.
-### Functionality
-- **Upgrade Execution**: Manages the process of transitioning to new software versions.
-### Key Features
-- **Seamless Transitions**: Ensures minimal disruption during network upgrades.
-
-## NFT Module
-### Overview
-- **Purpose**: Provides functionalities for managing Non-Fungible Tokens.
-### Functionality
-- **NFT Management**: Supports creation, transfer, and querying of NFTs.
-### Key Features
-- **Digital Asset Innovation**: Expands the network's capabilities in the digital asset space.
-
-## Consensus Module
-### Overview
-- **Purpose**: Modifies and manages CometBFT's ABCI consensus parameters.
-### Functionality
-- **Consensus Parameter Adjustment**: Allows for the modification of consensus-related settings.
-### Key Features
-- **Consensus Flexibility**: Enhances the adaptability of the network's consensus mechanism.
-
-## Circuit Module
-### Overview
-- **Purpose**: Implements a circuit breaker mechanism for pausing network messages.
-### Functionality
-- **Emergency Control**: Activates in critical situations to pause network operations.
-### Key Features
-- **Operational Safety**: Adds an additional layer of control for network stability.
-
-## Genutil Module
-### Overview
-- **Purpose**: Provides genesis utilities for the Cosmos SDK.
-### Functionality
-- **Network Initialization**: Assists in setting up the initial network state.
-### Key Features
-- **Foundation Setup**: Crucial for the initial configuration of the Cosmos network.
-
-## IBC Module
-### Overview
-- **Purpose**: Manages inter-blockchain communication within the Cosmos ecosystem.
-### Functionality
-- **Cross-Chain Transactions**: Enables the transfer of data and tokens between different blockchains.
-### Key Features
-- **Interoperability**: Facilitates seamless interaction across various blockchain networks.
-
-## CosmWasm Module
-### Overview
-- **Purpose**: Enables the integration and execution of smart contracts.
-### Functionality
-- **Smart Contract Support**: Allows for the development and deployment of complex contracts.
-### Key Features
-- **Contract Flexibility**: Expands the network's capabilities with customizable smart contract solutions.
-
-## EVM Module
-### Overview
-- **Purpose**: Supports Ethereum Virtual Machine compatible smart contracts.
-### Functionality
-- **Ethereum Compatibility**: Enables the execution of Ethereum-based smart contracts.
-### Key Features
-- **Cross-Chain Functionality**: Bridges the gap between Cosmos and Ethereum ecosystems.
+1. [Staking Module](./staking-module.mdx) - Manages staking and delegation processes.
+2. [Governance Module](./governance-module.mdx) - Facilitates on-chain governance and voting.
+3. [Bank Module](./bank-module.mdx) - Handles token transfers and account balances.
+4. [Slashing Module](./slashing-module.mdx) - Implements validator punishment mechanisms.
+5. [Distribution Module](./distribution-module.mdx) - Manages fee and reward distribution.
+6. [Auth Module](./auth-module.mdx) - Manages authentication of accounts and transactions.
+7. [Authz Module](./authz-module.mdx) - Enables granular permissions for accounts.
+8. [Mint Module](./mint-module.mdx) - Manages the creation of new tokens and inflation.
+9. [Crisis Module](./crisis-module.mdx) - Handles network emergencies and halts.
+10. [IBC Module](./ibc-module.mdx) - Facilitates inter-blockchain communication.
+11. [Params Module](./params-module.mdx) - Manages network parameters.
+12. [Evidence Module](./evidence-module.mdx) - Handles evidence for validator misbehaviors.
+13. [Upgrade Module](./upgrade-module.mdx) - Coordinates network upgrades.
+14. [Feegrant Module](./feegrant-module.mdx) - Manages fee payment delegations.
+15. [NFT Module](./nft-module.mdx) - Supports Non-Fungible Token functionalities.
+16. [CosmWasm Module](./cosmWasm-module.mdx) - Enables smart contracts in the network.
+17. [EVM Module](./evm-module.mdx) - Supports Ethereum Virtual Machine compatibility.
+18. [Protocolpool Module](./protocolpool-module.mdx) - Manages community pool funds.
+19. [Circuit Module](./circuit-module.mdx) - Implements a circuit breaker mechanism.
+20. [Genutil Module](./genutil-module.mdx) - Provides genesis utilities.
+21. [Consensus Module](./consensus-module.mdx) - Manages consensus parameters.
 
